@@ -108,7 +108,7 @@ Build a **locally-hosted web application** where a user enters a Jira Issue ID, 
 ## 🗂️ Target File Structure
 
 ```
-1-VibeCodingMethod/
+TestPlanCreator/
 ├── BLAST.md
 ├── TestPlanTemplate.md
 ├── task_plan.md

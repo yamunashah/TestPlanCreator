@@ -8,15 +8,15 @@ A collection of deterministic, AI-driven developer automation tools built using 
 
 | Project | Description | Tech Stack | Status |
 |---------|-------------|------------|--------|
-| [1-VibeCodingMethod](./1-VibeCodingMethod) | **Jira Test Plan Generator** — Automatically generates structured, audit-ready Test Plans from Jira issues with zero duplicate sections and auto-saves to `TestPlanReport/TestPlan{JIRANAME}.md`. | Python, Flask, Vanilla JS, Jira REST API v3 | ✅ Complete & Tested |
+| [TestPlanCreator](./TestPlanCreator) | **Jira Test Plan Generator** — Automatically generates structured, audit-ready Test Plans from Jira issues with zero duplicate sections and auto-saves to `TestPlanReport/TestPlan{JIRANAME}.md`. | Python, Flask, Vanilla JS, Jira REST API v3 | ✅ Complete & Tested |
 
 ---
 
-## 🚀 Getting Started with Project 1: Jira Test Plan Generator
+## 🚀 Getting Started with TestPlanCreator
 
 ```bash
 # Navigate to project
-cd 1-VibeCodingMethod
+cd TestPlanCreator
 
 # Set up virtual environment
 python -m venv .venv
@@ -29,14 +29,14 @@ python app.py
 
 Open `http://localhost:5001` (or `http://localhost:5000`) in your browser.
 
-For complete details, see [`1-VibeCodingMethod/README.md`](./1-VibeCodingMethod/README.md).
+For complete details, see [`TestPlanCreator/README.md`](./TestPlanCreator/README.md).
 
 ---
 
 ## 🧪 Running Automated Tests
 
 ```bash
-cd 1-VibeCodingMethod
+cd TestPlanCreator
 python tests/test_suite.py
 ```
 
@@ -51,3 +51,4 @@ git add .
 git commit -m "Initial commit: Jira Test Plan Generator with auto-save to TestPlanReport"
 git push -u origin main
 ```
+

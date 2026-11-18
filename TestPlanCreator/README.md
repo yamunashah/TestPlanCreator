@@ -24,7 +24,7 @@ Built using the **B.L.A.S.T.** protocol and **A.N.T.** 3-layer architecture.
 ### 1. Install Dependencies
 
 ```bash
-cd 1-VibeCodingMethod
+cd TestPlanCreator
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -80,7 +80,7 @@ Navigate to the URL displayed in your terminal (typically `http://localhost:5001
 ## 📁 Repository Structure
 
 ```
-1-VibeCodingMethod/
+TestPlanCreator/
 ├── app.py                         ← Flask server (entry point & routes)
 ├── requirements.txt               ← Dependencies (Flask, requests)
 ├── .env.example                   ← Configuration reference
