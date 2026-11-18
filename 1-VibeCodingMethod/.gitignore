@@ -1,0 +1,17 @@
+# Environments & Dependencies
+.venv/
+venv/
+ENV/
+env/
+*.env
+!.env.example
+
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Testing
+.pytest_cache/
+
+# OS Specific
+.DS_Store

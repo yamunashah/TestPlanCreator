@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jira Test Plan Generator</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────────── -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon">🧪</span>
+        <div>
+          <h1 class="brand-title">Test Plan Generator</h1>
+          <p class="brand-sub">Powered by Jira</p>
+        </div>
+      </div>
+      <button class="btn btn-secondary" id="configBtn" title="Configure Jira Settings">
+        ⚙️ Configure
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Main ───────────────────────────────────────────────────── -->
+  <main class="app-main">
+
+    <!-- Search Card -->
+    <section class="card search-card">
+      <h2 class="card-title">Generate Test Plan from Jira</h2>
+      <p class="card-subtitle">Enter a Jira Issue ID to fetch its details and generate a structured test plan.</p>
+
+      <div class="search-row">
+        <div class="input-wrap">
+          <span class="input-icon">🔍</span>
+          <input
+            type="text"
+            id="jiraIdInput"
+            class="jira-input"
+            placeholder="e.g. PROJECT-123"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <button class="btn btn-primary" id="generateBtn">
+          <span id="generateBtnText">Generate Test Plan</span>
+          <span id="generateBtnSpinner" class="spinner hidden"></span>
+        </button>
+      </div>
+
+      <!-- Config status pill -->
+      <div class="config-status" id="configStatus">
+        <span id="configDot" class="status-dot dot-unconfigured"></span>
+        <span id="configLabel">Not configured — click ⚙️ Configure to add Jira credentials</span>
+      </div>
+    </section>
+
+    <!-- Error Banner -->
+    <div class="error-banner hidden" id="errorBanner">
+      <span class="error-icon">⚠️</span>
+      <span id="errorMessage"></span>
+      <button class="error-close" id="errorClose">✕</button>
+    </div>
+
+    <!-- Result Section -->
+    <section class="card result-card hidden" id="resultCard">
+
+      <div class="result-header">
+        <div class="result-meta">
+          <span class="result-badge" id="resultBadge"></span>
+          <h2 class="result-title" id="resultTitle"></h2>
+        </div>
+        <div class="result-actions">
+          <div class="save-file-wrap">
+            <input
+              type="text"
+              id="saveFilePathInput"
+              class="save-path-input"
+              placeholder="TestPlanReport/TestPlan{JIRANAME}.md"
+              value="TestPlanReport/TestPlan.md"
+              title="Enter file path to save test plan report (convention: TestPlanReport/TestPlan{JIRANAME}.md)"
+            />
+            <button class="btn btn-secondary btn-sm" id="saveFileBtn">💾 Save to File</button>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="copyBtn">📋 Copy Markdown</button>
+          <button class="btn btn-primary btn-sm" id="downloadBtn">📥 Download .md</button>
+        </div>
+      </div>
+
+      <div class="save-file-banner hidden" id="saveFileAlert"></div>
+
+      <hr class="result-divider" />
+
+      <div class="test-plan-output" id="testPlanOutput"></div>
+
+    </section>
+
+  </main>
+
+  <!-- ── Configure Modal ────────────────────────────────────────── -->
+  <div class="modal-overlay hidden" id="configModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">⚙️ Jira Configuration</h2>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="form-group">
+          <label class="form-label" for="authTypeSelect">Jira Type</label>
+          <div class="segmented-control">
+            <button class="seg-btn active" data-value="cloud" id="segCloud">☁️ Cloud</button>
+            <button class="seg-btn" data-value="server" id="segServer">🏢 Server / Data Center</button>
+          </div>
+          <input type="hidden" id="authTypeInput" value="cloud" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="baseUrlInput">
+            Jira Base URL
+            <span class="form-hint">e.g. https://yourcompany.atlassian.net</span>
+          </label>
+          <input type="url" id="baseUrlInput" class="form-input" placeholder="https://yourcompany.atlassian.net" />
+        </div>
+
+        <div class="form-group" id="emailGroup">
+          <label class="form-label" for="emailInput">
+            Email Address
+            <span class="form-hint">Your Jira account email (Cloud only)</span>
+          </label>
+          <input type="email" id="emailInput" class="form-input" placeholder="you@company.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="tokenInput">
+            API Token
+            <span class="form-hint" id="tokenHint">
+              Cloud: Generate at <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank">Atlassian API Tokens</a>
+            </span>
+          </label>
+          <div class="token-wrap">
+            <input type="password" id="tokenInput" class="form-input" placeholder="Paste your API token here" autocomplete="off" />
+            <button class="toggle-visibility" id="toggleToken" title="Show/Hide token">👁</button>
+          </div>
+        </div>
+
+        <!-- Validation result -->
+        <div class="validation-result hidden" id="validationResult"></div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="testConnectionBtn">🔌 Test Connection</button>
+        <div class="modal-footer-right">
+          <button class="btn btn-ghost" id="clearConfigBtn">🗑 Clear</button>
+          <button class="btn btn-primary" id="saveConfigBtn">💾 Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
